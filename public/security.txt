@@ -1,0 +1,9 @@
+Contact: mailto:patients@fertilitecenter.com
+Contact: tel:+16195867830
+Expires: 2027-12-31T23:59:59.000Z
+Preferred-Languages: en, es
+Canonical: https://start.fertilite.com/.well-known/security.txt
+
+# Fertilite Reproductive Medicine Clinic
+# Legitimate IVF medical clinic in Tijuana, Mexico
+# Serving US patients seeking affordable fertility treatment

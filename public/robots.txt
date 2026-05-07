@@ -1,0 +1,6 @@
+User-agent: *
+Allow: /
+
+# Legitimate IVF clinic landing page
+# Fertilite Reproductive Medicine Clinic
+# Tijuana, Mexico
