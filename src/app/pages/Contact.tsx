@@ -35,9 +35,11 @@ export function Contact() {
       // Track form submission with Google Analytics and Facebook Pixel
       if (typeof window !== 'undefined' && (window as any).gtag) {
         (window as any).gtag('event', 'adw_formulario_contacto');
+        console.log('[Tracking] Form submit event fired: adw_formulario_contacto');
       }
       if (typeof window !== 'undefined' && (window as any).fbq) {
         (window as any).fbq('track', 'Contact', { content_name: 'adw_formulario_contacto' });
+        console.log('[Tracking] Facebook Pixel Contact event fired');
       }
 
       if (score) {
@@ -45,7 +47,11 @@ export function Contact() {
       } else {
         console.warn('[Contact] Lead submission failed, navigating anyway');
       }
-      navigate('/results');
+
+      // Delay navigation to allow tracking events to fire
+      setTimeout(() => {
+        navigate('/results');
+      }, 300);
     }
   };
 

@@ -35,9 +35,11 @@ export function Results() {
     // Track WhatsApp click
     if (typeof window !== 'undefined' && (window as any).gtag) {
       (window as any).gtag('event', 'adw_telefono_whatsapp');
+      console.log('[Tracking] WhatsApp event fired: adw_telefono_whatsapp');
     }
     if (typeof window !== 'undefined' && (window as any).fbq) {
       (window as any).fbq('track', 'Contact', { content_name: 'adw_telefono_whatsapp' });
+      console.log('[Tracking] Facebook Pixel Contact event fired');
     }
     window.open('https://wa.me/16195867830', '_blank');
   };
@@ -46,9 +48,11 @@ export function Results() {
     // Track phone call click
     if (typeof window !== 'undefined' && (window as any).gtag) {
       (window as any).gtag('event', 'adw_telefono_llamada');
+      console.log('[Tracking] Phone call event fired: adw_telefono_llamada');
     }
     if (typeof window !== 'undefined' && (window as any).fbq) {
       (window as any).fbq('track', 'Contact', { content_name: 'adw_telefono_llamada' });
+      console.log('[Tracking] Facebook Pixel Contact event fired');
     }
     // Delay navigation to allow tracking events to fire
     setTimeout(() => {
@@ -60,9 +64,11 @@ export function Results() {
     // Track email click
     if (typeof window !== 'undefined' && (window as any).gtag) {
       (window as any).gtag('event', 'adw_correo_contacto');
+      console.log('[Tracking] Email event fired: adw_correo_contacto');
     }
     if (typeof window !== 'undefined' && (window as any).fbq) {
       (window as any).fbq('track', 'Contact', { content_name: 'adw_correo_contacto' });
+      console.log('[Tracking] Facebook Pixel Contact event fired');
     }
     // Delay navigation to allow tracking events to fire
     setTimeout(() => {
