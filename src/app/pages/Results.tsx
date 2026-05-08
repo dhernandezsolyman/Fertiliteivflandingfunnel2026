@@ -50,7 +50,10 @@ export function Results() {
     if (typeof window !== 'undefined' && (window as any).fbq) {
       (window as any).fbq('track', 'Contact', { content_name: 'adw_telefono_llamada' });
     }
-    window.location.href = 'tel:+16195867830';
+    // Delay navigation to allow tracking events to fire
+    setTimeout(() => {
+      window.location.href = 'tel:+16195867830';
+    }, 300);
   };
 
   const handleEmail = () => {
@@ -61,7 +64,10 @@ export function Results() {
     if (typeof window !== 'undefined' && (window as any).fbq) {
       (window as any).fbq('track', 'Contact', { content_name: 'adw_correo_contacto' });
     }
-    window.location.href = 'mailto:patients@fertilitecenter.com';
+    // Delay navigation to allow tracking events to fire
+    setTimeout(() => {
+      window.location.href = 'mailto:patients@fertilitecenter.com';
+    }, 300);
   };
 
   return (
