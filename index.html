@@ -3,81 +3,153 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  
-  <!-- SEO Meta Tags -->
+
+  <!-- SEO -->
   <meta name="description" content="Affordable IVF treatment in Tijuana. Save 40-60% with Fertilite's experienced specialists. Board-certified reproductive medicine clinic minutes from San Diego." />
   <meta name="keywords" content="IVF Tijuana, affordable IVF, fertility clinic Tijuana, IVF Mexico, reproductive medicine" />
   <meta name="author" content="Fertilite Reproductive Medicine Clinic" />
   <meta name="robots" content="index, follow" />
-  
-  <!-- Open Graph Meta Tags -->
+
+  <!-- Open Graph -->
   <meta property="og:title" content="Fertilite IVF - Affordable Treatment in Tijuana" />
   <meta property="og:description" content="Premium IVF care at honest prices. Board-certified specialists, state-of-the-art lab. Minutes from San Diego." />
   <meta property="og:type" content="website" />
-  <meta property="og:url" content="https://start.fertilite.com" />
-  
-  <!-- Business Information -->
+  <meta property="og:url" content="https://start.fertilite.com.mx" />
+
+  <!-- Geo -->
   <meta name="geo.region" content="MX-BCN" />
   <meta name="geo.placename" content="Tijuana" />
   <meta name="geo.position" content="32.5149;-117.0382" />
-  
-  <!-- Security -->
+
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  
   <title>Fertilite IVF - Affordable Fertility Treatment in Tijuana</title>
-  
-  <!-- Google Consent Mode v2 (GDPR/CCPA Compliant) -->
+
+  <!--
+    ════════════════════════════════════════════════════════════════════
+    STEP 1  Define window.dataLayer and gtag exactly once, globally.
+            Must execute before any consent or measurement command.
+    ════════════════════════════════════════════════════════════════════
+  -->
   <script>
     window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    
-    // Default consent to denied (will be updated if user accepts cookies)
-    gtag('consent', 'default', {
-      'analytics_storage': 'denied',
-      'ad_storage': 'denied',
-      'ad_user_data': 'denied',
-      'ad_personalization': 'denied',
-      'wait_for_update': 500
-    });
-    
-    // Check if user previously consented
-    const consent = localStorage.getItem('fertilite_cookie_consent');
-    if (consent === 'accepted') {
+    function gtag() { dataLayer.push(arguments); }
+
+    // Dev diagnostics — localhost / 127.0.0.1 only.
+    var _DEV = (
+      window.location.hostname === 'localhost' ||
+      window.location.hostname === '127.0.0.1'
+    );
+
+    /*
+      STEP 2  Restore any previously stored consent choice from localStorage.
+              Reading this before setting the default lets us decide whether
+              wait_for_update is needed and log the restored state.
+    */
+    var _storedConsent = null;
+    try { _storedConsent = localStorage.getItem('fertilite_cookie_consent'); }
+    catch (e) {}
+
+    if (_DEV) {
+      console.log(
+        '[Tracking] Restored consent from localStorage:',
+        _storedConsent || 'none (new visitor)'
+      );
+    }
+
+    /*
+      STEP 3  Set Consent Mode v2 default — denied for all parameters.
+              Must run before gtag.js loads so it operates in advanced mode.
+
+              wait_for_update:
+                - New visitors: 500 ms. The consent banner is a genuine
+                  async component (1 s setTimeout). 500 ms gives returning
+                  visitors' synchronous update a chance to land; it does
+                  not help new-visitor clicks (those always arrive after
+                  the timer expires) but satisfies the advanced-mode spec.
+                - Returning visitors: omitted. Their consent update is
+                  restored synchronously below, before gtag.js fires.
+    */
+    var _defaultConsent = {
+      analytics_storage:  'denied',
+      ad_storage:         'denied',
+      ad_user_data:       'denied',
+      ad_personalization: 'denied'
+    };
+    if (!_storedConsent) {
+      _defaultConsent.wait_for_update = 500;
+    }
+
+    gtag('consent', 'default', _defaultConsent);
+
+    if (_DEV) {
+      console.log(
+        '[Tracking] gtag consent default set → denied (all).',
+        _storedConsent ? 'No wait_for_update (returning visitor).' : 'wait_for_update: 500 ms (new visitor).'
+      );
+    }
+
+    /*
+      STEP 4  Restore stored consent synchronously for returning visitors.
+              Runs before the gtag.js script fires any hit, so no
+              wait_for_update is needed for these users.
+
+              Both 'accepted' and 'declined' are explicitly signalled:
+              - 'accepted' → grants all four parameters.
+              - 'declined' → explicitly denies all four parameters.
+                This distinguishes a confirmed user refusal from the
+                ambiguous "not yet decided" default state, which matters
+                for Consent Mode v2 advanced-mode modelling.
+    */
+    if (_storedConsent === 'accepted') {
       gtag('consent', 'update', {
-        'analytics_storage': 'granted',
-        'ad_storage': 'granted',
-        'ad_user_data': 'granted',
-        'ad_personalization': 'granted'
+        analytics_storage:  'granted',
+        ad_storage:         'granted',
+        ad_user_data:       'granted',
+        ad_personalization: 'granted'
       });
+      if (_DEV) {
+        console.log('[Tracking] gtag consent update → granted (restored for returning visitor)');
+      }
+    } else if (_storedConsent === 'declined') {
+      gtag('consent', 'update', {
+        analytics_storage:  'denied',
+        ad_storage:         'denied',
+        ad_user_data:       'denied',
+        ad_personalization: 'denied'
+      });
+      if (_DEV) {
+        console.log('[Tracking] gtag consent update → denied (restored for returning visitor who declined)');
+      }
     }
   </script>
-  
-  <!-- Google tag (gtag.js) - Google Ads & Analytics -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=AW-699207728"></script>
+
+  <!--
+    STEP 5  Load Google tag while consent is denied so Consent Mode v2
+            operates in advanced mode (cookieless pings / possible modelling).
+            send_page_view: false on G-8X7FFQRYJS prevents an automatic
+            page_view on load; the Analytics React component fires all
+            page_view events so every SPA route change is tracked correctly.
+  -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=AW-699207728"
+          onload="if(window._DEV)console.log('[Tracking] gtag.js loaded successfully');"></script>
   <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
     gtag('js', new Date());
     gtag('config', 'AW-699207728');
-    gtag('config', 'G-8X7FFQRYJS');
+    gtag('config', 'G-8X7FFQRYJS', { send_page_view: false });
+
+    if (_DEV) {
+      console.log('[Tracking] gtag configs applied. GA4 send_page_view: false — Analytics component owns all page_view events.');
+    }
   </script>
-  
-  <!-- Meta Pixel Code -->
-  <script>
-  !function(f,b,e,v,n,t,s)
-  {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
-  n.callMethod.apply(n,arguments):n.queue.push(arguments)};
-  if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
-  n.queue=[];t=b.createElement(e);t.async=!0;
-  t.src=v;s=b.getElementsByTagName(e)[0];
-  s.parentNode.insertBefore(t,s)}(window, document,'script',
-  'https://connect.facebook.net/en_US/fbevents.js');
-  fbq('init', '480677391421581');
-  fbq('track', 'PageView');
-  </script>
-  <!-- End Meta Pixel Code -->
-  
-  <!-- Structured Data for Medical Business -->
+
+  <!--
+    Meta Pixel is NOT loaded or initialised here.
+    Advertising consent must be granted before the Pixel SDK is fetched or
+    any event is fired. All Pixel logic is in src/app/lib/tracking.ts and
+    src/app/components/CookieConsent.tsx.
+  -->
+
+  <!-- Structured Data -->
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -105,11 +177,6 @@
   </script>
 </head>
 <body>
-  <!-- Meta Pixel Noscript Fallback -->
-  <noscript><img height="1" width="1" style="display:none"
-  src="https://www.facebook.com/tr?id=480677391421581&ev=PageView&noscript=1"
-  /></noscript>
-  
   <div id="root"></div>
   <script type="module" src="/src/main.tsx"></script>
 </body>

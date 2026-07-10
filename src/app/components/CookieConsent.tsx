@@ -1,45 +1,69 @@
 import { useState, useEffect } from 'react';
 import { Cookie, X } from 'lucide-react';
+import {
+  getStoredConsent,
+  gtagConsentUpdate,
+  initPixelAndTrackPageView,
+} from '../lib/tracking';
 
+const DEV = import.meta.env.DEV;
+
+/**
+ * Cookie consent banner.
+ *
+ * Scope is intentionally narrow:
+ *  - Show the banner to new visitors (no stored choice).
+ *  - Handle Accept All and Reject Non-Essential actions.
+ *
+ * Returning visitors: gtag consent was already restored in index.html
+ * before gtag('config') ran. Meta Pixel init for returning visitors
+ * is handled by Analytics.tsx on first render, not here.
+ */
 export function CookieConsent() {
   const [show, setShow] = useState(false);
 
   useEffect(() => {
-    const consent = localStorage.getItem('fertilite_cookie_consent');
-    if (!consent) {
-      // Show banner after 1 second delay
+    const stored = getStoredConsent();
+
+    if (DEV) {
+      console.log('[CookieConsent] Stored consent on mount:', stored ?? 'none (new visitor)');
+    }
+
+    if (!stored) {
+      // New visitor — show banner after 1 s
       const timer = setTimeout(() => setShow(true), 1000);
       return () => clearTimeout(timer);
     }
+
+    // Returning visitor: nothing to do here.
+    // gtag consent was applied in index.html.
+    // Meta Pixel init is handled by Analytics.tsx.
   }, []);
+
+  // ── Accept All ─────────────────────────────────────────────────────────────
 
   const handleAccept = () => {
     localStorage.setItem('fertilite_cookie_consent', 'accepted');
-    // @ts-ignore
-    if (window.gtag) {
-      // @ts-ignore
-      window.gtag('consent', 'update', {
-        'analytics_storage': 'granted',
-        'ad_storage': 'granted',
-        'ad_user_data': 'granted',
-        'ad_personalization': 'granted'
-      });
-    }
+
+    // Update Google Consent Mode v2 immediately, before any navigation.
+    gtagConsentUpdate(true);
+
+    // Init Meta Pixel and fire the first PageView for the current route.
+    // Analytics will handle all subsequent route-change PageViews;
+    // trackPixelPageView's path dedup prevents a double-fire for this route.
+    initPixelAndTrackPageView(window.location.pathname);
+
     setShow(false);
   };
 
+  // ── Reject Non-Essential ───────────────────────────────────────────────────
+
   const handleDecline = () => {
     localStorage.setItem('fertilite_cookie_consent', 'declined');
-    // @ts-ignore
-    if (window.gtag) {
-      // @ts-ignore
-      window.gtag('consent', 'update', {
-        'analytics_storage': 'denied',
-        'ad_storage': 'denied',
-        'ad_user_data': 'denied',
-        'ad_personalization': 'denied'
-      });
-    }
+
+    // Update Google Consent Mode v2 immediately, before any navigation.
+    gtagConsentUpdate(false);
+
     setShow(false);
   };
 
