@@ -137,7 +137,9 @@ Your 3 tables are already created:
 - `coordinator_actions` - Follow-up tasks
 
 ### 2. Create Coordinator Views
-Run `supabase-views-FIXED.sql` in Supabase SQL Editor to create 9 views:
+`supabase-dashboard-views.sql` is the canonical dashboard-view definition. Do not run any dashboard SQL against production until coordinator role/RLS access has been rebuilt. The other SQL variants are retained for historical comparison.
+
+When coordinator access is ready, run `supabase-dashboard-views.sql` in Supabase SQL Editor to create 9 views:
 - `hot_leads` - Score 75+ (1hr SLA)
 - `warm_leads` - Score 55-74 (4hr SLA)
 - `cool_leads` - Score 35-54 (24hr nurture)
@@ -176,7 +178,7 @@ git push -u origin main
    - `VITE_SUPABASE_URL`
    - `VITE_SUPABASE_ANON_KEY`
 4. Click **Deploy**
-5. Add custom domain: `start.fertilite.com`
+5. Add custom domain: `start.fertilite.com.mx`
 
 See `/DEPLOYMENT_GUIDE.md` for complete instructions.
 
@@ -398,7 +400,7 @@ For complete strategic thinking behind this funnel, see:
 - **`/LEAD_SCORING_TEST_RESULTS.md`** - 8 test scenarios with score breakdowns
 - **`/COORDINATOR_DASHBOARD_GUIDE.md`** - How to use Supabase views
 - **`/CUSTOMIZATION_GUIDE.md`** - Branding, copy, styling changes
-- **`/supabase-views-FIXED.sql`** - SQL to create coordinator views
+- **`/supabase-dashboard-views.sql`** - Canonical SQL to create coordinator views
 
 ---
 
@@ -411,9 +413,9 @@ The funnel automatically captures and stores:
 
 **Example URLs:**
 ```
-https://start.fertilite.com?utm_source=facebook&utm_medium=cpc&utm_campaign=ivf_spring_2026
-https://start.fertilite.com?utm_source=google&utm_medium=cpc&utm_campaign=ivf_search
-https://start.fertilite.com?utm_source=instagram&utm_medium=social&utm_campaign=awareness
+https://start.fertilite.com.mx?utm_source=facebook&utm_medium=cpc&utm_campaign=ivf_spring_2026
+https://start.fertilite.com.mx?utm_source=google&utm_medium=cpc&utm_campaign=ivf_search
+https://start.fertilite.com.mx?utm_source=instagram&utm_medium=social&utm_campaign=awareness
 ```
 
 All attribution data stored in `leads` table for reporting.
