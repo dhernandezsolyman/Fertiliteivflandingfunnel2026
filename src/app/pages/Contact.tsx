@@ -5,6 +5,7 @@ import { useFunnel } from '../context/FunnelContext';
 import { Footer } from '../components/Footer';
 import { Lock, ArrowRight, Mail, Phone, MessageCircle, Loader2 } from 'lucide-react';
 import { smallroundLight } from '../components/logos';
+import { trackContactEvent } from '../lib/tracking';
 
 export function Contact() {
   const navigate = useNavigate();
@@ -32,15 +33,7 @@ export function Contact() {
       updateData({ firstName, email, phone, contactMethod });
       const score = await submitLead({ firstName, email, phone, contactMethod });
 
-      // Track form submission with Google Analytics and Facebook Pixel
-      if (typeof window !== 'undefined' && (window as any).gtag) {
-        (window as any).gtag('event', 'adw_formulario_contacto');
-        console.log('[Tracking] Form submit event fired: adw_formulario_contacto');
-      }
-      if (typeof window !== 'undefined' && (window as any).fbq) {
-        (window as any).fbq('track', 'Contact', { content_name: 'adw_formulario_contacto' });
-        console.log('[Tracking] Facebook Pixel Contact event fired');
-      }
+      trackContactEvent('adw_formulario_contacto');
 
       if (score) {
         console.log('[Contact] Lead submitted successfully, score:', score.total, 'urgency:', score.urgency);

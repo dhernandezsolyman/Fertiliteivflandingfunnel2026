@@ -3,6 +3,7 @@ import { Check, DollarSign, Shield, Award, Plane, Calendar, MessageCircle, Phone
 import { ImageWithFallback } from '../components/figma/ImageWithFallback';
 import { Footer } from '../components/Footer';
 import { fullLogoDark, fullLogoLight } from '../components/logos';
+import { trackContactEvent } from '../lib/tracking';
 
 export function Results() {
   const { data } = useFunnel();
@@ -32,28 +33,12 @@ export function Results() {
   const costs = getCostEstimate();
 
   const handleWhatsApp = () => {
-    // Track WhatsApp click
-    if (typeof window !== 'undefined' && (window as any).gtag) {
-      (window as any).gtag('event', 'adw_telefono_whatsapp');
-      console.log('[Tracking] WhatsApp event fired: adw_telefono_whatsapp');
-    }
-    if (typeof window !== 'undefined' && (window as any).fbq) {
-      (window as any).fbq('track', 'Contact', { content_name: 'adw_telefono_whatsapp' });
-      console.log('[Tracking] Facebook Pixel Contact event fired');
-    }
+    trackContactEvent('adw_telefono_whatsapp');
     window.open('https://wa.me/16195867830', '_blank');
   };
 
   const handleCall = () => {
-    // Track phone call click
-    if (typeof window !== 'undefined' && (window as any).gtag) {
-      (window as any).gtag('event', 'adw_telefono_llamada');
-      console.log('[Tracking] Phone call event fired: adw_telefono_llamada');
-    }
-    if (typeof window !== 'undefined' && (window as any).fbq) {
-      (window as any).fbq('track', 'Contact', { content_name: 'adw_telefono_llamada' });
-      console.log('[Tracking] Facebook Pixel Contact event fired');
-    }
+    trackContactEvent('adw_telefono_llamada');
     // Delay navigation to allow tracking events to fire
     setTimeout(() => {
       window.location.href = 'tel:+16195867830';
@@ -61,15 +46,7 @@ export function Results() {
   };
 
   const handleEmail = () => {
-    // Track email click
-    if (typeof window !== 'undefined' && (window as any).gtag) {
-      (window as any).gtag('event', 'adw_correo_contacto');
-      console.log('[Tracking] Email event fired: adw_correo_contacto');
-    }
-    if (typeof window !== 'undefined' && (window as any).fbq) {
-      (window as any).fbq('track', 'Contact', { content_name: 'adw_correo_contacto' });
-      console.log('[Tracking] Facebook Pixel Contact event fired');
-    }
+    trackContactEvent('adw_correo_contacto');
     // Delay navigation to allow tracking events to fire
     setTimeout(() => {
       window.location.href = 'mailto:patients@fertilitecenter.com';

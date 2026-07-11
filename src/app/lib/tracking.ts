@@ -84,7 +84,6 @@ export function trackGtagPageView(pathname: string, title: string): void {
   g.gtag('event', 'page_view', {
     page_path:     pathname,
     page_title:    title,
-    page_location: window.location.href,
   });
   if (DEV) {
     console.log(`[Tracking] GA4 page_view → ${pathname} | title: "${title}" | gtag loaded: true`);
@@ -165,4 +164,25 @@ export function trackPixelPageView(pathname: string): void {
 export function initPixelAndTrackPageView(pathname: string): void {
   initMetaPixel();
   trackPixelPageView(pathname);
+}
+
+/**
+ * Track a generic contact-intent conversion without sending form values,
+ * health information, or URL query parameters to analytics vendors.
+ */
+export function trackContactEvent(eventName: string): void {
+  const w = window as any;
+
+  // Google Consent Mode applies the visitor's stored consent state.
+  if (typeof w.gtag === 'function') {
+    w.gtag('event', eventName);
+  }
+
+  // Meta must never receive an event before advertising consent.
+  if (!hasAdConsent()) return;
+
+  initMetaPixel();
+  if (pixelInitialized && typeof w.fbq === 'function') {
+    w.fbq('track', 'Contact', { content_name: eventName });
+  }
 }
