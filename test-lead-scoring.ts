@@ -138,7 +138,7 @@ function scoreClinic(clinic?: string): number {
 
 function scorePath(path?: string): number {
   switch (path) {
-    case 'A structured plan for peace of mind': return 95;
+    case 'A more structured plan if it improves peace of mind': return 95;
     case 'I want to compare both': return 80;
     case 'A single IVF cycle': return 65;
     case 'Not sure yet': return 40;
@@ -177,7 +177,7 @@ const testScenarios = [
       travel: 'Yes, definitely',
       concern: 'Previous failed cycles',
       currentClinic: 'Yes—but considering switching',
-      pathOpenness: 'A structured plan for peace of mind',
+      pathOpenness: 'A more structured plan if it improves peace of mind',
       contactMethod: 'whatsapp',
     }
   },
@@ -222,7 +222,7 @@ const testScenarios = [
       travel: 'Yes, definitely',
       concern: 'My age or ovarian reserve',
       currentClinic: 'No',
-      pathOpenness: 'A structured plan for peace of mind',
+      pathOpenness: 'A more structured plan if it improves peace of mind',
       contactMethod: 'whatsapp',
     }
   },

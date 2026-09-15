@@ -5,21 +5,17 @@ import { calculateLeadScore } from "./lead-scoring.tsx";
 import * as db from "./database.tsx";
 
 const app = new Hono();
-const allowedOrigins = new Set([
-  "https://start.fertilite.com.mx",
-  "http://localhost:5173",
-]);
 
 // Enable logger
 app.use('*', logger(console.log));
 
-// Permit only the production funnel and local development clients.
+// Enable CORS for all routes and methods
 app.use(
   "/*",
   cors({
-    origin: (origin) => allowedOrigins.has(origin) ? origin : "",
+    origin: "*",
     allowHeaders: ["Content-Type", "Authorization"],
-    allowMethods: ["POST", "OPTIONS"],
+    allowMethods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
     exposeHeaders: ["Content-Length"],
     maxAge: 600,
   }),
@@ -131,11 +127,32 @@ app.post("/make-server-41f10ad7/leads/:leadId/submit", async (c) => {
       suggestedAction: score.suggestedNextAction,
     });
 
-    console.log(`[LEAD SUBMITTED] Session: ${sessionLeadId} | DB: ${lead.id} | Score: ${score.total} | Urgency: ${score.urgency}`);
+    console.log(`[LEAD SUBMITTED] Session: ${sessionLeadId} | DB: ${lead.id} | Score: ${score.total} | Urgency: ${score.urgency} | Name: ${contact.firstName}`);
     return c.json({ success: true, score, leadId: lead.id });
   } catch (err) {
     console.log(`[ERROR] Submitting lead ${c.req.param("leadId")}: ${err}`);
     return c.json({ error: `Failed to submit lead: ${err}` }, 500);
+  }
+});
+
+// Get lead details (for results page or admin)
+app.get("/make-server-41f10ad7/leads/:leadId", async (c) => {
+  try {
+    const leadId = c.req.param("leadId");
+
+    const lead = await db.getLead(leadId);
+
+    if (!lead) {
+      return c.json({ error: "Lead not found" }, 404);
+    }
+
+    const responses = await db.getLeadResponses(lead.id);
+    const actions = await db.getCoordinatorActions(lead.id);
+
+    return c.json({ lead, responses, actions });
+  } catch (err) {
+    console.log(`[ERROR] Fetching lead: ${err}`);
+    return c.json({ error: `Failed to fetch lead: ${err}` }, 500);
   }
 });
 

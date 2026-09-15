@@ -59,7 +59,7 @@ Esta guía indica dónde verificar la implementación de los eventos de tracking
 
 ## Verificación en Producción
 
-**URL del sitio:** https://start.fertilite.com.mx
+**URL del sitio:** https://start.fertilite.com
 
 **Herramientas recomendadas:**
 - Google Tag Assistant (extensión de Chrome)

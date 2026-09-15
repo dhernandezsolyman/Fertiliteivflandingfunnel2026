@@ -33,7 +33,7 @@
 - Travel: Yes, definitely
 - Concern: Previous failed cycles
 - Clinic: Yes—but considering switching
-- Path: A structured plan for peace of mind
+- Path: A more structured plan if it improves peace of mind
 - Contact: WhatsApp
 
 **Score Breakdown:**
@@ -137,7 +137,7 @@
 - Travel: Yes, definitely
 - Concern: My age or ovarian reserve
 - Clinic: No
-- Path: A structured plan for peace of mind
+- Path: A more structured plan if it improves peace of mind
 - Contact: WhatsApp
 
 **Score Breakdown:**

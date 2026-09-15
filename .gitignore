@@ -1,9 +1,0 @@
-node_modules/
-dist/
-build/
-.env
-.env.*
-!.env.example
-.vercel/
-supabase/.temp/
-supabase/.branches/

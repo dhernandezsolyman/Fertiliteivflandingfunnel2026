@@ -21,7 +21,6 @@ import p14 from '@/imports/p14.jpg';
 import p15 from '@/imports/p15.jpg';
 import p16 from '@/imports/p16.jpg';
 import p17 from '@/imports/p17.jpg';
-import p18 from '@/imports/p18.png';
 import p19 from '@/imports/p19.jpg';
 import p20 from '@/imports/p20.jpg';
 import p21 from '@/imports/p21.jpg';
@@ -57,7 +56,7 @@ import pict1 from '@/imports/pict_1.jpg';
 
 const allPhotos = [
   p01, p02, p03, p04, p05, p06, p07, p08, p09, p10,
-  p11, p12, p13, p14, p15, p16, p17, p18, p19, p20,
+  p11, p12, p13, p14, p15, p16, p17, p19, p20,
   p21, p22, p23, p24, p25, p26, p27, p28, p29, p30,
   p31, p32, p33, p34, p35, p36, p37, p38, p39, p40,
   p41, p42, p43, p44, p45, p46, p47, p48, p49, pict1,
@@ -66,18 +65,10 @@ const allPhotos = [
 function chunkIntoColumns(photos: string[], cols: number): string[][] {
   const columns: string[][] = Array.from({ length: cols }, () => []);
   photos.forEach((p, i) => columns[i % cols].push(p));
-  return columns.map((col) => [...col, ...col]);
+  return columns;
 }
 
 const columns = chunkIntoColumns(allPhotos, 5);
-
-const colConfig = [
-  { duration: '28s', direction: 'normal'  },
-  { duration: '22s', direction: 'reverse' },
-  { duration: '32s', direction: 'normal'  },
-  { duration: '25s', direction: 'reverse' },
-  { duration: '30s', direction: 'normal'  },
-];
 
 export function Landing() {
   const navigate = useNavigate();
@@ -94,10 +85,6 @@ export function Landing() {
             <div
               key={ci}
               className="flex flex-col gap-1.5 flex-1 min-w-0"
-              style={{
-                animation: `scrollCol ${colConfig[ci].duration} linear infinite ${colConfig[ci].direction}`,
-                willChange: 'transform',
-              }}
             >
               {col.map((src, pi) => (
                 <div key={pi} className="relative w-full flex-shrink-0" style={{ paddingBottom: '120%' }}>
@@ -129,11 +116,11 @@ export function Landing() {
             </div>
 
             <h1 className="text-[1.625rem] leading-snug sm:text-4xl md:text-5xl font-semibold mb-3 sm:mb-5">
-              A More Confident Path to IVF
+              Welcome to Fertilite Tijuana
             </h1>
 
             <p className="text-[0.9375rem] sm:text-lg md:text-xl text-teal-100 mb-5 sm:mb-8 leading-relaxed">
-              Premium IVF care in Tijuana with flexible treatment paths—designed to reduce pressure and increase peace of mind.
+              Tijuana{"'"}s original premium bilingual IVF care clinic. Want to learn more? Answer a brief set of questions and a patient coordinator will get in touch with you.
             </p>
 
             <div className="space-y-2 sm:space-y-3 mb-6 sm:mb-10">
@@ -155,7 +142,7 @@ export function Landing() {
               onClick={() => navigate('/step-1')}
               className="group w-full sm:w-auto bg-white text-teal-900 px-5 py-3 sm:px-8 sm:py-3.5 rounded-xl font-semibold text-[0.9375rem] sm:text-lg shadow-2xl hover:shadow-3xl transition-all duration-300 hover:scale-[1.02] inline-flex items-center justify-center sm:justify-start gap-2"
             >
-              Find Your Personalized IVF Path
+              Click Here to Get Started
               <ArrowRight className="w-4 h-4 sm:w-5 sm:h-5 group-hover:translate-x-1 transition-transform flex-shrink-0" />
             </button>
 
@@ -165,13 +152,6 @@ export function Landing() {
           </div>
         </div>
       </div>
-
-      <style>{`
-        @keyframes scrollCol {
-          from { transform: translateY(0); }
-          to   { transform: translateY(-50%); }
-        }
-      `}</style>
 
       {/* Trust Bar */}
       <div className="bg-gray-50 border-y border-gray-100 py-5 sm:py-8">

@@ -277,3 +277,49 @@ export async function createCoordinatorAction(data: {
     throw new Error(`Failed to create coordinator action: ${error.message}`);
   }
 }
+
+// ==========================================
+// GET LEAD DATA
+// ==========================================
+
+export async function getLead(leadId: string) {
+  const { data, error } = await supabase
+    .from('leads')
+    .select('*')
+    .eq('id', leadId)
+    .single();
+
+  if (error && error.code !== 'PGRST116') {
+    throw new Error(`Failed to get lead: ${error.message}`);
+  }
+
+  return data;
+}
+
+export async function getLeadResponses(leadId: string) {
+  const { data, error } = await supabase
+    .from('lead_responses')
+    .select('*')
+    .eq('lead_id', leadId)
+    .order('created_at', { ascending: true });
+
+  if (error) {
+    throw new Error(`Failed to get lead responses: ${error.message}`);
+  }
+
+  return data;
+}
+
+export async function getCoordinatorActions(leadId: string) {
+  const { data, error } = await supabase
+    .from('coordinator_actions')
+    .select('*')
+    .eq('lead_id', leadId)
+    .order('created_at', { ascending: false });
+
+  if (error) {
+    throw new Error(`Failed to get coordinator actions: ${error.message}`);
+  }
+
+  return data;
+}

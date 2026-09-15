@@ -79,7 +79,7 @@ vercel --prod
 
 ### In Vercel Dashboard:
 1. Go to your project → **Settings** → **Domains**
-2. Add the canonical domain: `start.fertilite.com.mx`
+2. Add your domain (e.g., `start.fertilite.com` or `ivf.fertilite.com`)
 3. Vercel will show you DNS records to add:
    - **Type:** CNAME
    - **Name:** start (or ivf)
@@ -127,17 +127,17 @@ vercel --prod
 
 **Facebook Ads:**
 ```
-https://start.fertilite.com.mx?utm_source=facebook&utm_medium=cpc&utm_campaign=ivf_spring_2026
+https://start.fertilite.com?utm_source=facebook&utm_medium=cpc&utm_campaign=ivf_spring_2026
 ```
 
 **Google Ads:**
 ```
-https://start.fertilite.com.mx?utm_source=google&utm_medium=cpc&utm_campaign=ivf_search
+https://start.fertilite.com?utm_source=google&utm_medium=cpc&utm_campaign=ivf_search
 ```
 
 **Instagram:**
 ```
-https://start.fertilite.com.mx?utm_source=instagram&utm_medium=social&utm_campaign=ivf_awareness
+https://start.fertilite.com?utm_source=instagram&utm_medium=social&utm_campaign=ivf_awareness
 ```
 
 These will be captured automatically and stored in the `leads` table!
@@ -221,7 +221,7 @@ Changes go live in ~1-2 minutes!
 
 1. ✅ Test full funnel with real data
 2. ✅ Set up coordinator dashboard views in Supabase
-3. ✅ Configure domain (start.fertilite.com.mx)
+3. ✅ Configure domain (start.fertilite.com)
 4. ✅ Update ad campaigns with new URL
 5. ✅ Monitor leads in Supabase dashboard
 6. ✅ Set up email notifications (optional)

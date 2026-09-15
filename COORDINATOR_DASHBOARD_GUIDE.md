@@ -3,8 +3,6 @@
 ## How to Set Up
 
 ### 1. Run the SQL Views
-`supabase-dashboard-views.sql` is the canonical dashboard-view definition. Do not run it against production until coordinator role/RLS access has been rebuilt; the other SQL variants are retained for historical comparison.
-
 1. Go to your Supabase Dashboard
 2. Click **SQL Editor** in the left sidebar
 3. Click **New Query**
