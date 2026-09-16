@@ -1,8 +1,27 @@
 import { useFunnel } from '../context/FunnelContext';
 import { Check, DollarSign, Shield, Award, Plane, Calendar, MessageCircle, Phone, Mail, Heart, ArrowRight } from 'lucide-react';
-import { ImageWithFallback } from '../components/figma/ImageWithFallback';
 import { Footer } from '../components/Footer';
 import { fullLogoDark, fullLogoLight } from '../components/logos';
+
+import p01 from '@/imports/p01.jpg';
+import p02 from '@/imports/p02.jpg';
+import p03 from '@/imports/p03.jpg';
+import p04 from '@/imports/p04.jpg';
+import p05 from '@/imports/p05.jpg';
+import p06 from '@/imports/p06.jpg';
+import p07 from '@/imports/p07.jpg';
+import p08 from '@/imports/p08.jpg';
+import p09 from '@/imports/p09.jpg';
+import p10 from '@/imports/p10.jpg';
+import p11 from '@/imports/p11.jpg';
+import p12 from '@/imports/p12.jpg';
+import p13 from '@/imports/p13.jpg';
+import p14 from '@/imports/p14.jpg';
+import p15 from '@/imports/p15.jpg';
+
+const collagePhotos = [p01, p02, p03, p04, p05, p06, p07, p08, p09, p10, p11, p12, p13, p14, p15];
+const collageCols: string[][] = [[], [], [], [], []];
+collagePhotos.forEach((p, i) => collageCols[i % 5].push(p));
 
 export function Results() {
   const { data } = useFunnel();
@@ -241,13 +260,23 @@ export function Results() {
             ))}
           </div>
 
-          <div className="relative rounded-2xl overflow-hidden shadow-xl h-48 sm:h-64 md:h-80">
-            <ImageWithFallback
-              src="https://images.unsplash.com/photo-1762625570087-6d98fca29531?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxtb2Rlcm4lMjBtZWRpY2FsJTIwY2xpbmljJTIwaW50ZXJpb3J8ZW58MXx8fHwxNzczNzY5OTM3fDA&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral"
-              alt="Fertilite clinic"
-              className="w-full h-full object-cover"
-              loading="lazy"
-            />
+          <div className="relative rounded-2xl overflow-hidden shadow-xl h-48 sm:h-64 md:h-80 flex gap-1.5">
+            {collageCols.map((col, ci) => (
+              <div key={ci} className="flex flex-col gap-1.5 flex-1 min-w-0">
+                {col.map((src, pi) => (
+                  <div key={pi} className="relative w-full flex-1 min-h-0">
+                    <img
+                      src={src}
+                      alt=""
+                      className="absolute inset-0 w-full h-full object-cover"
+                      loading="lazy"
+                      aria-hidden="true"
+                    />
+                  </div>
+                ))}
+              </div>
+            ))}
+            <div className="absolute inset-0 bg-gradient-to-r from-teal-900/20 to-transparent pointer-events-none rounded-2xl" />
           </div>
         </div>
       </div>

@@ -120,7 +120,7 @@ export function Landing() {
             </h1>
 
             <p className="text-[0.9375rem] sm:text-lg md:text-xl text-teal-100 mb-5 sm:mb-8 leading-relaxed">
-              Tijuana{"'"}s original premium bilingual IVF care clinic. Want to learn more? Answer a brief set of questions and a patient coordinator will get in touch with you.
+              Tijuana{"'"}s original cross-border IVF clinic. Want to learn more? Answer a brief set of questions and a patient coordinator will get in touch with you.
             </p>
 
             <div className="space-y-2 sm:space-y-3 mb-6 sm:mb-10">
